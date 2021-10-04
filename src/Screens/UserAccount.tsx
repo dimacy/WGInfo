@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Pressable} from 'react-native';
+import {View, Text, Pressable, Image} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {WebView} from 'react-native-webview';
 
-const Home = () => {
+const UserAccount = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [uri, setUri] = useState('');
 
@@ -40,6 +40,16 @@ const Home = () => {
         alignItems: 'center',
         justifyContent: 'center',
       }}>
+      <Image
+        style={{
+          width: '100%',
+          height: '100%',
+          flex: 1,
+          justifyContent: 'center',
+          position: 'absolute',
+        }}
+        source={require('../Assets/Img/account_backGround.jpeg')}
+      />
       <LinearGradient
         colors={['#fe9100', '#da4800']}
         style={{
@@ -57,7 +67,7 @@ const Home = () => {
             height: 50,
           }}>
           <Text style={{color: '#fff', fontSize: 17, fontWeight: 'bold'}}>
-            Войти
+            {'Войти'}
           </Text>
         </Pressable>
       </LinearGradient>
@@ -65,4 +75,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default UserAccount;
