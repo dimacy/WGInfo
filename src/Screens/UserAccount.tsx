@@ -15,7 +15,6 @@ const UserAccount = () => {
             style={{
               flex: 1,
               backgroundColor: '#2b2d2f',
-              //   position: 'absolute',
               zIndex: 100,
               ...StyleSheet.absoluteFillObject,
               opacity: 0.5,
