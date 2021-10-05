@@ -1,78 +1,51 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, Pressable, Image} from 'react-native';
-import LinearGradient from 'react-native-linear-gradient';
-import {WebView} from 'react-native-webview';
+import React, {useState} from 'react';
+import {View, Text, Image, StyleSheet} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import Auth from '../Components/Auth/Auth';
 
 const UserAccount = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const [uri, setUri] = useState('');
+  const [userInfo, setUserInfo] = useState<any | null>(null);
+  const {top, bottom} = useSafeAreaInsets();
+  console.log({userInfo});
 
-  useEffect(() => {
-    const get = async () => {
-      const res = await fetch(
-        'https://api.worldoftanks.ru/wot/auth/login/?application_id=c2d5d057bbbacc437c69f3a3db670360&nofollow=1&expires_at=300',
-        {method: 'get'},
-      );
-      const data = await res.json();
-      setUri(data.data.location);
-      console.log(data.data.location);
-    };
-    get();
-  }, []);
-
-  const onPress = () => {
-    setIsVisible(!isVisible);
-  };
-
-  // return (
-  //   <WebView
-  //     source={{
-  //       uri,
-  //     }}
-  //     onNavigationStateChange={e => console.log({e})}
-  //   />
-  // );
   return (
-    <View
-      style={{
-        backgroundColor: 'black',
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-      <Image
-        style={{
-          width: '100%',
-          height: '100%',
-          flex: 1,
-          justifyContent: 'center',
-          position: 'absolute',
-        }}
-        source={require('../Assets/Img/account_backGround.jpeg')}
-      />
-      <LinearGradient
-        colors={['#fe9100', '#da4800']}
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: 150,
-          height: 50,
-        }}>
-        <Pressable
-          onPress={onPress}
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 150,
-            height: 50,
-          }}>
-          <Text style={{color: '#fff', fontSize: 17, fontWeight: 'bold'}}>
-            {'Войти'}
-          </Text>
-        </Pressable>
-      </LinearGradient>
+    <View style={{flex: 1}}>
+      {userInfo ? (
+        <View style={{flex: 1, paddingTop: top, paddingBottom: bottom}}>
+          <View
+            style={{
+              flex: 1,
+              backgroundColor: '#2b2d2f',
+              //   position: 'absolute',
+              zIndex: 100,
+              ...StyleSheet.absoluteFillObject,
+              opacity: 0.5,
+            }}
+          />
+          <Image
+            style={styles.img}
+            source={require('../Assets/Img/profile_bg.png')}
+            resizeMode={'cover'}
+          />
+          <View>
+            <Text>{userInfo.nickname}</Text>
+          </View>
+        </View>
+      ) : (
+        <Auth setUserInfo={setUserInfo} />
+      )}
     </View>
   );
 };
 
 export default UserAccount;
+
+const styles = StyleSheet.create({
+  img: {
+    width: '100%',
+    height: '100%',
+    flex: 1,
+    justifyContent: 'center',
+    position: 'absolute',
+  },
+});
