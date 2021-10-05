@@ -6,7 +6,6 @@ import Auth from '../Components/Auth/Auth';
 const UserAccount = () => {
   const [userInfo, setUserInfo] = useState<any | null>(null);
   const {top, bottom} = useSafeAreaInsets();
-  console.log({userInfo});
 
   return (
     <View style={{flex: 1}}>

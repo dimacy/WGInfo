@@ -1,5 +1,9 @@
 import React from 'react';
-import Navigation from './src/Navigation';
+import Navigation from './Navigation';
+
+if (__DEV__) {
+  import('./Reactotron/ReactotronConfig');
+}
 
 const App = () => {
   return <Navigation />;
